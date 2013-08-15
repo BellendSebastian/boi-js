@@ -1,12 +1,15 @@
 define(function () {
     'use strict';
 
-    function Screen(canvas, context) {
-        this.canvas = canvas;
+    function Screen(context) {
         this.ctx = context;
+        this.title = null;
     }
 
     Screen.prototype.update = function () {
+        this.ctx.fillStyle = '#fff';
+        this.ctx.textAlign = 'center';
+        this.ctx.fillText('-- ' + this.title + ' --', 400, 20);
         return this;
     };
 

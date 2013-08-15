@@ -1,16 +1,20 @@
 define([
     'Renderer',
     'CreatureFactory',
-    'DebugTools'
+    'DebugTools',
+    'Input'
 ], function (
     Renderer,
     CreatureFactory,
-    DebugTools
+    DebugTools,
+    Input
 ) {
     'use strict';
 
     function Game() {
+        this.paused = false;
         this.renderer = new Renderer(document.getElementById('viewport'));
+        this.input = new Input();
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
@@ -22,6 +26,12 @@ define([
     }
 
     Game.prototype.update = function () {
+        if (this.input.isPressed(73)) {
+            this.renderer.test();
+        } else if (this.input.isPressed(27)) {
+            this.renderer.untest();
+        }
+        if (this.paused) return;
         this.renderer.update();
     };
 

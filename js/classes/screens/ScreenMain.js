@@ -8,17 +8,10 @@ define([
     ScreenMain.prototype = new Screen();
     ScreenMain.prototype.constructor = ScreenMain;
 
-    function ScreenMain() {
-        Screen.call(this);
+    function ScreenMain(context) {
+        Screen.call(this, context);
+        this.title = 'Main';
     }
-
-    ScreenMain.prototype.draw = function () {
-
-    };
-
-    ScreenMain.prototype.update = function () {
-    
-    };
 
     return ScreenMain;
 });

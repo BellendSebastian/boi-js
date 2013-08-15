@@ -5,13 +5,11 @@ define([
 ) {
     'use strict';
 
+    Player.prototype = new Creature();
+    Player.prototype.constructor = Player;
     function Player() {
         Creature.call(this);
     }
-
-    Player.prototype = new Creature();
-
-    Player.prototype.constructor = Player;
 
     return Player;
 });

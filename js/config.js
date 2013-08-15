@@ -3,6 +3,7 @@ requirejs.config({
     paths: {
         // Core functionality
         'Game':             'classes/core/Game',
+        'Input':            'classes/core/Input',
         'Renderer':         'classes/core/Renderer',
 
         // Creature classes
@@ -13,6 +14,7 @@ requirejs.config({
         // Screens
         'Screen':           'classes/screens/Screen',
         'ScreenMain':       'classes/screens/ScreenMain',
+        'SubscreenTest':    'classes/screens/SubscreenTest',
 
         // Utilities
         'DebugTools':       'classes/utils/DebugTools'

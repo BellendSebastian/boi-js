@@ -1,12 +1,10 @@
 define([
     'Renderer',
     'CreatureFactory',
-    'DebugTools',
     'Input'
 ], function (
     Renderer,
     CreatureFactory,
-    DebugTools,
     Input
 ) {
     'use strict';
@@ -14,6 +12,7 @@ define([
     function Game() {
         this.paused = false;
         this.renderer = new Renderer(document.getElementById('viewport'));
+        this.entities = [];
         this.input = new Input();
         var requestAnimationFrame = window.requestAnimationFrame
             || window.mozRequestAnimationFrame
@@ -21,27 +20,34 @@ define([
             || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
-        this.dt = new DebugTools();
         var cf = new CreatureFactory();
         this.player = cf.spawnPlayer();
-
+        this.entities.push(this.player);
         this.loop();
     }
 
     Game.prototype.update = function () {
         this.handleKeys();
         if (this.paused) return;
+
+        this.entities.forEach(function (entity) {
+            entity.update();
+        });
         this.renderer.update();
     };
 
     Game.prototype.draw = function () {
+        if (this.paused) return;
+
+        this.entities.forEach(function (entity) {
+            entity.draw();
+        });
         this.renderer.draw();
     };
 
     Game.prototype.loop = function () {
         this.update();
         this.draw();
-        this.dt.fpsCounter();
         window.requestAnimationFrame(this.loop.bind(this));
     };
 
@@ -49,7 +55,15 @@ define([
         if (this.input.isPressed(73)) {
             this.renderer.test();
         } else if (this.input.isPressed(27)) {
+            this.paused = false;
             this.renderer.untest();
+        } else if (this.input.isPressed(80)) {
+            this.renderer.pause();
+            this.paused = true;
+        }
+
+        if (this.input.isPressed(91)) {
+            this.player.move(1);
         }
     };
 

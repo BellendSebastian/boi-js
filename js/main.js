@@ -3,9 +3,8 @@ require([
 ], function (
     Game
 ) {
+    'use strict';
     (function () {
-        'use strict';
-
         function main() {
             var g = new Game();
         }

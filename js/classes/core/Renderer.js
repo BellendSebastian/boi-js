@@ -13,6 +13,10 @@ define([
         this.screen = new ScreenMain(this.ctx);
         this.subscreen = null;
         this.inSubscreen = false;
+        this.showFps = true;
+        this.lastStep = new Date().getTime();
+        this.fps = '--';
+        this.frameCount = 0;
 
         this.canvas.width = '800';
         this.canvas.height = '600';
@@ -42,6 +46,7 @@ define([
         } else {
             this.screen.draw();
         }
+        this.fpsCounter();
     };
 
     Renderer.prototype.test = function () {
@@ -52,6 +57,30 @@ define([
     Renderer.prototype.untest = function () {
         this.inSubscreen = false;
         this.subscreen = null;
+    };
+
+    Renderer.prototype.pause = function () {
+        this.clear();
+        this.ctx.textAlign = 'center';
+        this.ctx.fillStyle = '#fff';
+        this.ctx.fillText('Paused', this.canvas.width / 2, this.canvas.height / 2);
+    };
+
+    Renderer.prototype.fpsCounter = function () {
+        this.frameCount++;
+        var now = new Date().getTime();
+        var elapsed = (now - this.lastStep);
+
+        if (elapsed >= 1000) {
+            this.fps = this.frameCount;
+            this.frameCount = 0;
+            elapsed -= 1000;
+            this.lastStep = now;
+        }
+
+        this.ctx.textAlign = 'left';
+        this.ctx.fillStyle = '#fff';
+        this.ctx.fillText(this.fps, 10, 20);
     };
 
     return Renderer;

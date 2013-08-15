@@ -15,7 +15,10 @@ define([
         this.paused = false;
         this.renderer = new Renderer(document.getElementById('viewport'));
         this.input = new Input();
-        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        var requestAnimationFrame = window.requestAnimationFrame
+            || window.mozRequestAnimationFrame
+            || window.webkitRequestAnimationFrame
+            || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
         this.dt = new DebugTools();
@@ -26,11 +29,7 @@ define([
     }
 
     Game.prototype.update = function () {
-        if (this.input.isPressed(73)) {
-            this.renderer.test();
-        } else if (this.input.isPressed(27)) {
-            this.renderer.untest();
-        }
+        this.handleKeys();
         if (this.paused) return;
         this.renderer.update();
     };
@@ -44,6 +43,14 @@ define([
         this.draw();
         this.dt.fpsCounter();
         window.requestAnimationFrame(this.loop.bind(this));
+    };
+
+    Game.prototype.handleKeys = function () {
+        if (this.input.isPressed(73)) {
+            this.renderer.test();
+        } else if (this.input.isPressed(27)) {
+            this.renderer.untest();
+        }
     };
 
     return Game;

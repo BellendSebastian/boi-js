@@ -3,11 +3,17 @@ define([
 ], function (
     ScreenMain
 ) {
+    'use strict';
+
     function Renderer(canvas) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.screen = new ScreenMain(this.canvas, this.ctx);
         this.subscreen = null;
+        this.inSubscreen = false;
+
+        this.canvas.width = '800';
+        this.canvas.height = '600';
 
         this.clear();
     }
@@ -20,11 +26,20 @@ define([
     };
 
     Renderer.prototype.update = function () {
-        this.screen.update();
+        if (this.inSubscreen) {
+            this.subscreen.update();
+        } else {
+            this.screen.update();
+        }
     };
 
     Renderer.prototype.draw = function () {
-        this.screen.draw();
+        this.clear();
+        if (this.inSubscreen) {
+            this.subscreen.draw();
+        } else {
+            this.screen.draw();
+        }
     };
 
     return Renderer;

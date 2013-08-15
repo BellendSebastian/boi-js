@@ -1,7 +1,11 @@
 define([
-    'Renderer'
+    'Renderer',
+    'CreatureFactory',
+    'DebugTools'
 ], function (
-    Renderer
+    Renderer,
+    CreatureFactory,
+    DebugTools
 ) {
     'use strict';
 
@@ -9,6 +13,11 @@ define([
         this.renderer = new Renderer(document.getElementById('viewport'));
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
+
+        this.dt = new DebugTools();
+        var cf = new CreatureFactory();
+        this.player = cf.spawnPlayer();
+
         this.loop();
     }
 
@@ -23,6 +32,7 @@ define([
     Game.prototype.loop = function () {
         this.update();
         this.draw();
+        this.dt.fpsCounter();
         window.requestAnimationFrame(this.loop.bind(this));
     };
 

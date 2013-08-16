@@ -16,10 +16,6 @@ define(function () {
         this.color = '#fff';
     }
 
-    Creature.prototype.shoot = function (x, y) {
-        
-    };
-
     Creature.prototype.update = function () {
         if (this.hasFired) {
             this.fireCooldown++;

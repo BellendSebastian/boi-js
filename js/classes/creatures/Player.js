@@ -7,6 +7,7 @@ define([
 
     Player.prototype = new Creature();
     Player.prototype.constructor = Player;
+
     function Player() {
         Creature.call(this);
     }

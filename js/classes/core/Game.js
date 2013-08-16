@@ -1,11 +1,13 @@
 define([
     'Renderer',
     'CreatureFactory',
-    'Input'
+    'Input',
+    'Projectile'
 ], function (
     Renderer,
     CreatureFactory,
-    Input
+    Input,
+    Projectile
 ) {
     'use strict';
 
@@ -14,10 +16,7 @@ define([
         this.renderer = new Renderer(document.getElementById('viewport'));
         this.entities = [];
         this.input = new Input();
-        var requestAnimationFrame = window.requestAnimationFrame
-            || window.mozRequestAnimationFrame
-            || window.webkitRequestAnimationFrame
-            || window.msRequestAnimationFrame;
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
         var cf = new CreatureFactory();
@@ -38,9 +37,12 @@ define([
 
     Game.prototype.draw = function () {
         if (this.paused) return;
-
+        var _this = this;
         this.entities.forEach(function (entity) {
-            entity.draw();
+            if (entity.pos.x < 0 || entity.pos.y < 0 || entity.pos.x > _this.renderer.canvas.width || entity.pos.y > _this.renderer.canvas.height) {
+                _this.entities.splice(_this.entities.indexOf(entity), 1);
+            }
+            entity.draw(_this.renderer);
         });
         this.renderer.draw();
     };
@@ -62,8 +64,42 @@ define([
             this.paused = true;
         }
 
-        if (this.input.isPressed(91)) {
-            this.player.move(1);
+        if (this.input.isPressed(87)) { // W
+            this.player.move(0, -1);
+        }
+        if (this.input.isPressed(83)) { // S
+            this.player.move(0, 1);
+        }
+        if (this.input.isPressed(65)) { // A
+            this.player.move(-1, 0);
+        }
+        if (this.input.isPressed(68)) { // D
+            this.player.move(1, 0);
+        }
+
+        if (this.input.isPressed(38)) { // Up
+            if (!this.player.hasFired) {
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, -1));
+                this.player.hasFired = true;
+            }
+        }
+        if (this.input.isPressed(40)) { // Down
+            if (!this.player.hasFired) {
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, 1));
+                this.player.hasFired = true;
+            }
+        }
+        if (this.input.isPressed(37)) { // Left
+            if (!this.player.hasFired) {
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, -1, 0));
+                this.player.hasFired = true;
+            }
+        }
+        if (this.input.isPressed(39)) { // Right
+            if (!this.player.hasFired) {
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 1, 0));
+                this.player.hasFired = true;
+            }
         }
     };
 

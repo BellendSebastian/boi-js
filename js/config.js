@@ -11,6 +11,9 @@ requirejs.config({
         'Player':           'classes/creatures/Player',
         'CreatureFactory':  'classes/creatures/CreatureFactory',
 
+        // Entities
+        'Projectile':       'classes/entities/Projectile',
+
         // Screens
         'Screen':           'classes/screens/Screen',
         'ScreenMain':       'classes/screens/ScreenMain',

@@ -1,10 +1,11 @@
 define(function () {
     'use strict';
 
-    function Projectile(x, y, velX, velY) {
+    function Projectile(x, y, velX, velY, modifier) {
         this.color = '#f00';
         this.glyph = '・';
         this.speed = 4.5;
+        this.modifier = modifier;
         this.vel = {
             x: velX,
             y: velY
@@ -16,8 +17,8 @@ define(function () {
     }
 
     Projectile.prototype.update = function () {
-        this.pos.x += this.vel.x * this.speed;
-        this.pos.y += this.vel.y * this.speed;
+        this.pos.x += this.vel.x * this.speed + this.modifier.x;
+        this.pos.y += this.vel.y * this.speed + this.modifier.y;
         return this;
     };
 

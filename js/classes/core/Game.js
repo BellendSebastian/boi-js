@@ -64,40 +64,49 @@ define([
             this.paused = true;
         }
 
+        var movement = {
+            x: 0,
+            y: 0
+        };
+
         if (this.input.isPressed(87)) { // W
             this.player.move(0, -1);
+            movement.y = -1;
         }
         if (this.input.isPressed(83)) { // S
             this.player.move(0, 1);
+            movement.y = 1;
         }
         if (this.input.isPressed(65)) { // A
             this.player.move(-1, 0);
+            movement.x = -1;
         }
         if (this.input.isPressed(68)) { // D
             this.player.move(1, 0);
+            movement.x = 1;
         }
 
         if (this.input.isPressed(38)) { // Up
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, -1));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, -1, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(40)) { // Down
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, 1));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, 1, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(37)) { // Left
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, -1, 0));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, -1, 0, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(39)) { // Right
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 1, 0));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 1, 0, movement));
                 this.player.hasFired = true;
             }
         }

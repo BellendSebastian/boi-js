@@ -13,7 +13,7 @@ define(function () {
     Screen.prototype.draw = function () {
         this.ctx.fillStyle = '#fff';
         this.ctx.textAlign = 'center';
-        this.ctx.fillText('-- ' + this.title + ' --', 400, 20);
+        this.ctx.fillText('-- ' + this.title + ' --', 320, 20);
         return this;
     };
 

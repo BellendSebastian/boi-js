@@ -7,7 +7,7 @@ define([
 ) {
     'use strict';
 
-    function Renderer(canvas) {
+    function Renderer(canvas, width, height) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
         this.screen = new ScreenMain(this.ctx);
@@ -18,8 +18,8 @@ define([
         this.fps = '--';
         this.frameCount = 0;
 
-        this.canvas.width = '800';
-        this.canvas.height = '600';
+        this.canvas.width = width;
+        this.canvas.height = height;
 
         this.clear();
     }

@@ -8,12 +8,14 @@ define(function () {
         this.rof = 3;
         this.fireCooldown = 0;
         this.hasFired = false;
+        this.damage = 1;
+        this.sprite = new Image();
+        this.width = 16;
+        this.height = 16;
         this.pos = {
             x: 0,
             y: 0
         };
-        this.glyph = '@';
-        this.color = '#fff';
     }
 
     Creature.prototype.update = function () {
@@ -28,8 +30,7 @@ define(function () {
     };
 
     Creature.prototype.draw = function (renderer) {
-        renderer.ctx.fillStyle = this.color;
-        renderer.ctx.fillText(this.glyph, this.pos.x, this.pos.y);
+        renderer.ctx.drawImage(this.sprite, this.pos.x - this.width / 2, this.pos.y - this.height / 2);
         return this;
     };
 
@@ -65,6 +66,15 @@ define(function () {
         this.hp += amt;
         return this;
     };
+
+    Creature.prototype.setDamage = function (amount) {
+        this.damage = amount;
+        return this;
+    };
+
+    Creature.prototype.getDamage = function () {
+        return this.damage;
+    }
 
     return Creature;
 });

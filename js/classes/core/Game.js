@@ -13,7 +13,7 @@ define([
 
     function Game() {
         this.paused = false;
-        this.renderer = new Renderer(document.getElementById('viewport'));
+        this.renderer = new Renderer(document.getElementById('viewport'), 640, 480);
         this.entities = [];
         this.input = new Input();
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -21,6 +21,7 @@ define([
 
         var cf = new CreatureFactory();
         this.player = cf.spawnPlayer();
+        this.player.setDamage(8);
         this.entities.push(this.player);
         this.loop();
     }
@@ -88,25 +89,25 @@ define([
 
         if (this.input.isPressed(38)) { // Up
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, -1, movement));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, -1, movement).modDamage(this.player.getDamage()));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(40)) { // Down
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, 1, movement));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, 1, movement).modDamage(this.player.getDamage()));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(37)) { // Left
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, -1, 0, movement));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, -1, 0, movement).modDamage(this.player.getDamage()));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(39)) { // Right
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 1, 0, movement));
+                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 1, 0, movement).modDamage(this.player.getDamage()));
                 this.player.hasFired = true;
             }
         }

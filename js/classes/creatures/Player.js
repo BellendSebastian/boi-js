@@ -10,6 +10,7 @@ define([
 
     function Player() {
         Creature.call(this);
+        this.sprite.src = '/assets/sprites/player-test.png';
     }
 
     return Player;

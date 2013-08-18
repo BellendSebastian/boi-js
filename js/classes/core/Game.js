@@ -1,9 +1,11 @@
 define([
+    'Loader',
     'Renderer',
     'CreatureFactory',
     'Input',
     'Projectile'
 ], function (
+    Loader,
     Renderer,
     CreatureFactory,
     Input,
@@ -12,22 +14,38 @@ define([
     'use strict';
 
     function Game() {
+        this.loader = new Loader();
+        var images = {
+            playerSprite: '/assets/sprites/player-test.png',
+            projectileSprite: '/assets/sprites/projectile-test.png'
+        };
+        this.loader.loadImages(images);
+
         this.paused = false;
-        this.renderer = new Renderer(document.getElementById('viewport'), 640, 480);
-        this.entities = [];
+        this.loaded = false;
         this.input = new Input();
+
+        this.renderer = new Renderer(document.getElementById('viewport'), 640, 480);
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
+        this.entities = [];
         var cf = new CreatureFactory();
-        this.player = cf.spawnPlayer();
-        this.player.setDamage(8);
+        this.player = cf.spawnPlayer(this.loader.images.playerSprite);
         this.entities.push(this.player);
+
+        console.log('wat', new Projectile(this.loader.images.projectileSprite, 0, 0, 0, 0, {x:0,y:0}));
         this.loop();
     }
 
     Game.prototype.update = function () {
+        if (!this.loaded) {
+            this.loaded = this.loader.checkImageLoad();
+            return;
+        }
+
         this.handleKeys();
+
         if (this.paused) return;
 
         this.entities.forEach(function (entity) {
@@ -89,25 +107,25 @@ define([
 
         if (this.input.isPressed(38)) { // Up
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, -1, movement).modDamage(this.player.getDamage()));
+                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, 0, -1, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(40)) { // Down
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 0, 1, movement).modDamage(this.player.getDamage()));
+                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, 0, 1, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(37)) { // Left
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, -1, 0, movement).modDamage(this.player.getDamage()));
+                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, -1, 0, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(39)) { // Right
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.player.pos.x, this.player.pos.y, 1, 0, movement).modDamage(this.player.getDamage()));
+                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, 1, 0, movement));
                 this.player.hasFired = true;
             }
         }

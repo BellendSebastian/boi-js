@@ -5,6 +5,7 @@ requirejs.config({
         'Game':             'classes/core/Game',
         'Input':            'classes/core/Input',
         'Renderer':         'classes/core/Renderer',
+        'Loader':           'classes/core/Loader',
 
         // Creature classes
         'Creature':         'classes/creatures/Creature',

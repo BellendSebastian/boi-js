@@ -1,19 +1,17 @@
 define(function () {
     'use strict';
 
-    function Projectile(x, y, velX, velY, modifier) {
-        this.color = '#fff';
-        this.glyph = '・';
-        this.sprite = new Image();
-        this.sprite.src = '/assets/sprites/projectile-test.png';
-        this.speed = 4.5;
+    function Projectile(sprite, x, y, velX, velY, modifier) {
+        console.log('fuck you');
+        this.sprite = sprite;
+        this.speed = 10;
         this.modifier = modifier;
         this.damage = 0;
         this.width = 16;
         this.height = 16;
         this.vel = {
-            x: velX * this.speed,
-            y: velY * this.speed
+            x: velX * this.speed + this.modifier.x,
+            y: velY * this.speed + this.modifier.y
         };
         this.pos = {
             x: x,
@@ -23,9 +21,6 @@ define(function () {
 
     Projectile.prototype.modDamage = function (amount) {
         this.damage += amount;
-        if (this.damage > 5) {
-            this.color = '#f00';
-        }
         return this;
     };
 

@@ -1,7 +1,7 @@
 define(function () {
     'use strict';
 
-    function Creature() {
+    function Creature(sprite) {
         this.player = false;
         this.hp = 0;
         this.speed = 3;
@@ -9,7 +9,7 @@ define(function () {
         this.fireCooldown = 0;
         this.hasFired = false;
         this.damage = 1;
-        this.sprite = new Image();
+        this.sprite = sprite;
         this.width = 16;
         this.height = 16;
         this.pos = {

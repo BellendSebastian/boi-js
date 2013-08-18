@@ -8,9 +8,9 @@ define([
     Player.prototype = new Creature();
     Player.prototype.constructor = Player;
 
-    function Player() {
+    function Player(sprite) {
         Creature.call(this);
-        this.sprite.src = '/assets/sprites/player-test.png';
+        this.sprite = sprite;
     }
 
     return Player;

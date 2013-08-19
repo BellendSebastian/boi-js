@@ -18,7 +18,7 @@ requirejs.config({
         // Screens
         'Screen':           'classes/screens/Screen',
         'ScreenMain':       'classes/screens/ScreenMain',
-        'SubscreenTest':    'classes/screens/SubscreenTest',
+        'MainMenu':         'classes/screens/MainMenu',
 
         // Utilities
         'DebugTools':       'classes/utils/DebugTools'

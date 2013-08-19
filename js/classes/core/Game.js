@@ -3,13 +3,17 @@ define([
     'Renderer',
     'CreatureFactory',
     'Input',
-    'Projectile'
+    'Projectile',
+    'ScreenMain',
+    'MainMenu'
 ], function (
     Loader,
     Renderer,
     CreatureFactory,
     Input,
-    Projectile
+    Projectile,
+    ScreenMain,
+    MainMenu
 ) {
     'use strict';
 
@@ -27,6 +31,7 @@ define([
         this.input = new Input();
 
         this.renderer = new Renderer(document.getElementById('viewport'), 640, 480);
+        this.renderer.useScreen(new ScreenMain());
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
@@ -84,9 +89,9 @@ define([
      *  Handle keystrokes
      */
     Game.prototype.handleKeys = function () {
-        if (this.input.isPressed(73)) {
+        if (this.input.isPressed(77)) { // M
             this.paused = true;
-            this.renderer.test();
+            this.renderer.useSubscreen(new MainMenu());
             this.renderer.draw();
         } else if (this.input.isPressed(27)) {
             this.paused = false;

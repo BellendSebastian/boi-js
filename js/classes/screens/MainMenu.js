@@ -5,20 +5,20 @@ define([
 ) {
     'use strict';
 
-    IngameMenu.prototype = new Screen();
-    IngameMenu.prototype.constructor = IngameMenu;
+    MainMenu.prototype = new Screen();
+    MainMenu.prototype.constructor = MainMenu;
 
     /**
      *  Subscreen used for testing. Extends Screen.
      *
      *  TODO: New subscreen class as parent
      */
-    function IngameMenu() {
+    function MainMenu() {
         Screen.call(this);
         this.title = 'Ingame Menu';
     }
 
-    SubscreenTest.prototype.draw = function (canvas, context) {
+    MainMenu.prototype.draw = function (canvas, context) {
         context.fillStyle = '#000';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.fill();
@@ -35,6 +35,6 @@ define([
         context.fillText('[ESC] to return to game.', canvas.width - 40, canvas.height - 40);
     };
 
-    return SubscreenTest;
+    return MainMenu;
 });
 

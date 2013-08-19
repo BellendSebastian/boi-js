@@ -1,9 +1,5 @@
 define([
-    'ScreenMain',
-    'SubscreenTest'
 ], function (
-    ScreenMain,
-    SubscreenTest
 ) {
     'use strict';
 
@@ -14,7 +10,7 @@ define([
     function Renderer(canvas, width, height) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.screen = new ScreenMain();
+        this.screen = null;
         this.subscreen = null;
         this.inSubscreen = false;
         this.showFps = true;
@@ -27,6 +23,14 @@ define([
 
         this.clear();
     }
+
+    /**
+     *  Use the given screen
+     */
+    Renderer.prototype.useScreen = function (screen) {
+        this.screen = screen;
+        return this;
+    };
 
     /**
      *  Clear screen, draw a black rectangle (because black is cool)
@@ -61,15 +65,16 @@ define([
     };
 
     /**
-     * test / untest are for testing subscreens
-     *
-     * TODO: remove these
+     * Switch to a subscreen
      */
-    Renderer.prototype.test = function () {
-        this.subscreen = new SubscreenTest();
+    Renderer.prototype.useSubscreen = function (subscreen) {
+        this.subscreen = subscreen;
         this.inSubscreen = true;
     };
 
+    /**
+     *  Clear subscreen and return to main screen
+     */
     Renderer.prototype.clearSubscreen = function () {
         this.inSubscreen = false;
         this.subscreen = null;

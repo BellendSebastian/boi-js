@@ -27,7 +27,7 @@ define(function () {
     Loader.prototype.loadAll = function () {
         var _this = this;
         for (var item in this.queue) {
-            if (item.indexOf('sprite') !== -1) {
+            if (item.indexOf('sprite') !== -1 || item.indexOf('tiles') !== -1) {
                 var img = new Image();
                 img.src = '.' + item;
                 this.assets[item] = img;

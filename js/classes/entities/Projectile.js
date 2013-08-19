@@ -14,8 +14,8 @@ define(function () {
         this.width = 16;
         this.height = 16;
         this.vel = {
-            x: velX * this.speed + this.modifier.x,
-            y: velY * this.speed + this.modifier.y
+            x: velX * this.speed + (this.modifier.x * 2),
+            y: velY * this.speed + (this.modifier.y * 2)
         };
         this.pos = {
             x: x,
@@ -52,7 +52,7 @@ define(function () {
      *  Check to see if the projectile has collided
      */
     Projectile.prototype.checkCollisions = function (entities, world) {
-    
+        
     };
 
     return Projectile;

@@ -5,7 +5,8 @@ define([
     'Input',
     'Projectile',
     'ScreenMain',
-    'MainMenu'
+    'MainMenu',
+    'World'
 ], function (
     Loader,
     Renderer,
@@ -13,7 +14,8 @@ define([
     Input,
     Projectile,
     ScreenMain,
-    MainMenu
+    MainMenu,
+    World
 ) {
     'use strict';
 
@@ -24,6 +26,7 @@ define([
         this.loader = new Loader();
         this.loader.add('/assets/sprites/player-test.png');
         this.loader.add('/assets/sprites/projectile-test.png');
+        this.loader.add('/assets/tiles/test.png');
         this.loader.loadAll();
 
         this.paused = false;
@@ -40,7 +43,7 @@ define([
         this.player = cf.spawnPlayer(this.loader.assets['/assets/sprites/player-test.png']);
         this.entities.push(this.player);
 
-        this.world = [];
+        this.world = new World(this.loader.assets['/assets/tiles/test.png']);
 
         this.loop();
     }
@@ -67,6 +70,9 @@ define([
     Game.prototype.draw = function () {
         if (!this.loader.checkLoaded() || this.paused) return;
         this.renderer.draw();
+
+        this.world.room.draw(this.renderer.ctx);
+
         var _this = this;
         this.entities.forEach(function (entity) {
             if (entity.pos.x < 0 || entity.pos.y < 0 || entity.pos.x > _this.renderer.canvas.width || entity.pos.y > _this.renderer.canvas.height || entity.checkCollisions(_this.entities, _this.world)) {

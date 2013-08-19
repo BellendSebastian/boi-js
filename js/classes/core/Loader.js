@@ -43,10 +43,8 @@ define(function () {
 
     /**
      *  Check if load is in progress or not
-     *
-     *  TODO: Rename this
      */
-    Loader.prototype.checkImageLoad = function () {
+    Loader.prototype.checkLoaded = function () {
         return (this.queued === this.completed + this.error);
     };
 

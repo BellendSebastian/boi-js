@@ -112,5 +112,12 @@ define(function () {
         return this.damage;
     }
 
+    /**
+     *  Check to see if the creature has collided
+     */
+    Creature.prototype.checkCollisions = function (entities, world) {
+
+    };
+
     return Creature;
 });

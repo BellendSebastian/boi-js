@@ -48,5 +48,12 @@ define(function () {
         return this;
     };
 
+    /**
+     *  Check to see if the projectile has collided
+     */
+    Projectile.prototype.checkCollisions = function (entities, world) {
+    
+    };
+
     return Projectile;
 });

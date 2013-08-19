@@ -14,7 +14,7 @@ define([
     function Renderer(canvas, width, height) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
-        this.screen = new ScreenMain(this.ctx);
+        this.screen = new ScreenMain();
         this.subscreen = null;
         this.inSubscreen = false;
         this.showFps = true;
@@ -53,9 +53,9 @@ define([
     Renderer.prototype.draw = function () {
         this.clear();
         if (this.inSubscreen) {
-            this.subscreen.draw();
+            this.subscreen.draw(this.canvas, this.ctx);
         } else {
-            this.screen.draw();
+            this.screen.draw(this.canvas, this.ctx);
         }
         this.fpsCounter();
     };
@@ -66,11 +66,11 @@ define([
      * TODO: remove these
      */
     Renderer.prototype.test = function () {
-        this.subscreen = new SubscreenTest(this.ctx);
+        this.subscreen = new SubscreenTest();
         this.inSubscreen = true;
     };
 
-    Renderer.prototype.untest = function () {
+    Renderer.prototype.clearSubscreen = function () {
         this.inSubscreen = false;
         this.subscreen = null;
     };
@@ -82,7 +82,7 @@ define([
         this.clear();
         this.ctx.textAlign = 'center';
         this.ctx.fillStyle = '#fff';
-        this.ctx.fillText('Paused', this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.fillText('Paused. Press [ESC] to continue.', this.canvas.width / 2, this.canvas.height / 2);
     };
 
     /**

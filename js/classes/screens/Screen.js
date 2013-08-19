@@ -4,8 +4,7 @@ define(function () {
     /**
      *  Screen class to handle rendering of the current scene
      */
-    function Screen(context) {
-        this.ctx = context;
+    function Screen() {
         this.title = null;
     }
 
@@ -19,10 +18,10 @@ define(function () {
     /**
      *  Draw the current screen
      */
-    Screen.prototype.draw = function () {
-        this.ctx.fillStyle = '#fff';
-        this.ctx.textAlign = 'center';
-        this.ctx.fillText('-- ' + this.title + ' --', 320, 20);
+    Screen.prototype.draw = function (canvas, context) {
+        context.fillStyle = '#fff';
+        context.textAlign = 'center';
+        context.fillText('-- ' + this.title + ' --', 320, 20);
         return this;
     };
 

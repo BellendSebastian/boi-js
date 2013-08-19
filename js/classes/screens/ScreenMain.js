@@ -11,8 +11,8 @@ define([
     /**
      *  Main screen used for testing. Extends Screen.
      */
-    function ScreenMain(context) {
-        Screen.call(this, context);
+    function ScreenMain() {
+        Screen.call(this);
         this.title = 'Main';
     }
 

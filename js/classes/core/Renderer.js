@@ -33,8 +33,7 @@ define([
      */
     Renderer.prototype.clear = function () {
         this.canvas.width = this.canvas.width;
-        this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fill();
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     };
 
     /**

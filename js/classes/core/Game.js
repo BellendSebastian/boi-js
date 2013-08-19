@@ -30,7 +30,6 @@ define([
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
-console.log(this.loader.assets);
         this.entities = [];
         var cf = new CreatureFactory();
         this.player = cf.spawnPlayer(this.loader.assets['/assets/sprites/player-test.png']);
@@ -63,6 +62,7 @@ console.log(this.loader.assets);
      */
     Game.prototype.draw = function () {
         if (this.paused) return;
+        this.renderer.draw();
         var _this = this;
         this.entities.forEach(function (entity) {
             if (entity.pos.x < 0 || entity.pos.y < 0 || entity.pos.x > _this.renderer.canvas.width || entity.pos.y > _this.renderer.canvas.height) {
@@ -70,7 +70,6 @@ console.log(this.loader.assets);
             }
             entity.draw(_this.renderer);
         });
-        this.renderer.draw();
     };
 
     /**

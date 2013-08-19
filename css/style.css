@@ -10,4 +10,5 @@ body {
 #viewport {
     margin: 0 auto;
     display: block;
+    background: #000;
 }

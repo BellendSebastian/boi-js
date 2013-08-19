@@ -5,17 +5,17 @@ define([
 ) {
     'use strict';
 
-    SubscreenTest.prototype = new Screen();
-    SubscreenTest.prototype.constructor = SubscreenTest;
+    IngameMenu.prototype = new Screen();
+    IngameMenu.prototype.constructor = IngameMenu;
 
     /**
      *  Subscreen used for testing. Extends Screen.
      *
      *  TODO: New subscreen class as parent
      */
-    function SubscreenTest() {
+    function IngameMenu() {
         Screen.call(this);
-        this.title = 'Some kinda menu or some shit';
+        this.title = 'Ingame Menu';
     }
 
     SubscreenTest.prototype.draw = function (canvas, context) {
@@ -37,3 +37,4 @@ define([
 
     return SubscreenTest;
 });
+

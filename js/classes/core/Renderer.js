@@ -82,7 +82,8 @@ define([
         this.clear();
         this.ctx.textAlign = 'center';
         this.ctx.fillStyle = '#fff';
-        this.ctx.fillText('Paused. Press [ESC] to continue.', this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.fillText('Paused.', this.canvas.width / 2, this.canvas.height / 2);
+        this.ctx.fillText('Press [ESC] to continue.', this.canvas.width / 2, this.canvas.height / 2 + 10);
     };
 
     /**

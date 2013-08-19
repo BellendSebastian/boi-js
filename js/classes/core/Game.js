@@ -13,13 +13,14 @@ define([
 ) {
     'use strict';
 
+    /**
+     *  Game constructor
+     */
     function Game() {
         this.loader = new Loader();
-        var images = {
-            playerSprite: '/assets/sprites/player-test.png',
-            projectileSprite: '/assets/sprites/projectile-test.png'
-        };
-        this.loader.loadImages(images);
+        this.loader.add('/assets/sprites/player-test.png');
+        this.loader.add('/assets/sprites/projectile-test.png');
+        this.loader.loadAll();
 
         this.paused = false;
         this.loaded = false;
@@ -29,15 +30,18 @@ define([
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
 
+console.log(this.loader.assets);
         this.entities = [];
         var cf = new CreatureFactory();
-        this.player = cf.spawnPlayer(this.loader.images.playerSprite);
+        this.player = cf.spawnPlayer(this.loader.assets['/assets/sprites/player-test.png']);
         this.entities.push(this.player);
 
-        console.log('wat', new Projectile(this.loader.images.projectileSprite, 0, 0, 0, 0, {x:0,y:0}));
         this.loop();
     }
 
+    /**
+     *  Main update step, logic only, no visuals
+     */
     Game.prototype.update = function () {
         if (!this.loaded) {
             this.loaded = this.loader.checkImageLoad();
@@ -54,6 +58,9 @@ define([
         this.renderer.update();
     };
 
+    /**
+     *  Main draw step, no logic, only visuals
+     */
     Game.prototype.draw = function () {
         if (this.paused) return;
         var _this = this;
@@ -66,12 +73,18 @@ define([
         this.renderer.draw();
     };
 
+    /**
+     *  The main game loop
+     */
     Game.prototype.loop = function () {
         this.update();
         this.draw();
         window.requestAnimationFrame(this.loop.bind(this));
     };
 
+    /**
+     *  Handle keystrokes
+     */
     Game.prototype.handleKeys = function () {
         if (this.input.isPressed(73)) {
             this.renderer.test();
@@ -107,25 +120,25 @@ define([
 
         if (this.input.isPressed(38)) { // Up
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, 0, -1, movement));
+                this.entities.push(new Projectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, 0, -1, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(40)) { // Down
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, 0, 1, movement));
+                this.entities.push(new Projectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, 0, 1, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(37)) { // Left
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, -1, 0, movement));
+                this.entities.push(new Projectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, -1, 0, movement));
                 this.player.hasFired = true;
             }
         }
         if (this.input.isPressed(39)) { // Right
             if (!this.player.hasFired) {
-                this.entities.push(new Projectile(this.loader.images.projectileSprite, this.player.pos.x, this.player.pos.y, 1, 0, movement));
+                this.entities.push(new Projectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, 1, 0, movement));
                 this.player.hasFired = true;
             }
         }

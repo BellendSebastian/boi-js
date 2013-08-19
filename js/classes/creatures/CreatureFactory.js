@@ -5,8 +5,14 @@ define([
 ) {
     'use strict';
 
+    /**
+     *  Creature Factory class for spawning mobs / players
+     */
     function CreatureFactory() { }
 
+    /**
+     *  Spawn a new player, set default values and return the object
+     */
     CreatureFactory.prototype.spawnPlayer = function (sprite) {
         var player = new Player(sprite);
         player.setPlayer(true);

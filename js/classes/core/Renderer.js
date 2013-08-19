@@ -7,6 +7,10 @@ define([
 ) {
     'use strict';
 
+    /**
+     *  Main renderer class. Don't do any drawing outside
+     *  of this object.
+     */
     function Renderer(canvas, width, height) {
         this.canvas = canvas;
         this.ctx = this.canvas.getContext('2d');
@@ -24,13 +28,18 @@ define([
         this.clear();
     }
 
+    /**
+     *  Clear screen, draw a black rectangle (because black is cool)
+     */
     Renderer.prototype.clear = function () {
         this.canvas.width = this.canvas.width;
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.rect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.fill();
     };
 
+    /**
+     *  Update renderer object
+     */
     Renderer.prototype.update = function () {
         if (this.inSubscreen) {
             this.subscreen.update();
@@ -39,6 +48,9 @@ define([
         }
     };
 
+    /**
+     *  Draw screen
+     */
     Renderer.prototype.draw = function () {
         this.clear();
         if (this.inSubscreen) {
@@ -49,6 +61,11 @@ define([
         this.fpsCounter();
     };
 
+    /**
+     * test / untest are for testing subscreens
+     *
+     * TODO: remove these
+     */
     Renderer.prototype.test = function () {
         this.subscreen = new SubscreenTest(this.ctx);
         this.inSubscreen = true;
@@ -59,6 +76,9 @@ define([
         this.subscreen = null;
     };
 
+    /**
+     *  Pause the game and display pause message
+     */
     Renderer.prototype.pause = function () {
         this.clear();
         this.ctx.textAlign = 'center';
@@ -66,6 +86,11 @@ define([
         this.ctx.fillText('Paused', this.canvas.width / 2, this.canvas.height / 2);
     };
 
+    /**
+     *  Display fps counter
+     *
+     *  TODO: make this only display if in debug mode
+     */
     Renderer.prototype.fpsCounter = function () {
         this.frameCount++;
         var now = new Date().getTime();

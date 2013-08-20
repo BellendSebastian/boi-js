@@ -19,9 +19,6 @@ define(function () {
      *  Draw the current screen
      */
     Screen.prototype.draw = function (canvas, context) {
-        context.fillStyle = '#fff';
-        context.textAlign = 'center';
-        context.fillText('-- ' + this.title + ' --', 320, 20);
         return this;
     };
 

@@ -33,7 +33,7 @@ define([
         this.loaded = false;
         this.input = new Input();
 
-        this.renderer = new Renderer(document.getElementById('viewport'), 640, 480);
+        this.renderer = new Renderer(document.getElementById('viewport'), 960, 640);
         this.renderer.useScreen(new ScreenMain());
         var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
         window.requestAnimationFrame = requestAnimationFrame;
@@ -45,7 +45,6 @@ define([
 
         var wf = new WorldFactory();
         this.world = wf.buildWorld([this.loader.assets['/assets/tiles/test.png']]);
-        console.log(this.world);
 
         this.loop();
     }

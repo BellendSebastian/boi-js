@@ -6,18 +6,10 @@ define(function () {
      *
      *  TODO: Layouts should be randomised
      */
-    function Room(tileset) {
+    function Room(tileset, layout) {
         this.tileSize = 32;
         this.tileSet = tileset;
-        this.layout = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0],
-            [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ];
+        this.layout = layout;
     }
 
     /**

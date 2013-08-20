@@ -21,9 +21,11 @@ requirejs.config({
         'MainMenu':         'classes/screens/MainMenu',
 
         // Map guff
+        'WorldFactory':     'classes/world/WorldFactory',
         'World':            'classes/world/World',
         'Floor':            'classes/world/Floor',
         'Room':             'classes/world/Room',
+        'RoomLayouts':      'classes/world/RoomLayouts',
 
         // Utilities
         'DebugTools':       'classes/utils/DebugTools'

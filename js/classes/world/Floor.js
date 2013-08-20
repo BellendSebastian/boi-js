@@ -1,7 +1,9 @@
 define([
-    'Room'
+    'Room',
+    'RoomLayouts'
 ], function (
-    Room
+    Room,
+    RoomLayouts
 ) {
     'use strict';
 
@@ -10,10 +12,17 @@ define([
      *
      *  TODO: Make this more than just a simple lil placeholder
      */
-    function Floor(tileset) {
+    function Floor(tileset, depth) {
         this.tileSet = tileset;
+        this.depth = depth;
+        this.roomCount = 5;
         this.rooms = [];
-        this.rooms.push(new Room(this.tileSet));
+        var layout = new RoomLayouts();
+
+        for (var i = 0; i < this.roomCount; i++) {
+            this.rooms.push(new Room(this.tileSet, layout.getRandomLayout()));
+        }
+
     }
 
     return Floor;

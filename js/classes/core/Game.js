@@ -6,7 +6,7 @@ define([
     'Projectile',
     'ScreenMain',
     'MainMenu',
-    'World'
+    'WorldFactory'
 ], function (
     Loader,
     Renderer,
@@ -15,7 +15,7 @@ define([
     Projectile,
     ScreenMain,
     MainMenu,
-    World
+    WorldFactory
 ) {
     'use strict';
 
@@ -43,7 +43,9 @@ define([
         this.player = cf.spawnPlayer(this.loader.assets['/assets/sprites/player-test.png']);
         this.entities.push(this.player);
 
-        this.world = new World(this.loader.assets['/assets/tiles/test.png']);
+        var wf = new WorldFactory();
+        this.world = wf.buildWorld([this.loader.assets['/assets/tiles/test.png']]);
+        console.log(this.world);
 
         this.loop();
     }

@@ -53,11 +53,15 @@ define([
      *  Main update step, logic only, no visuals
      */
     Game.prototype.update = function () {
-        if (!this.loader.checkLoaded()) return;
+        if (!this.loader.checkLoaded()) {
+            return;
+        }
 
         this.handleKeys();
 
-        if (this.paused) return;
+        if (this.paused) {
+            return;
+        }
 
         this.entities.forEach(function (entity) {
             entity.update();
@@ -69,7 +73,9 @@ define([
      *  Main draw step, no logic, only visuals
      */
     Game.prototype.draw = function () {
-        if (!this.loader.checkLoaded() || this.paused) return;
+        if (!this.loader.checkLoaded() || this.paused) {
+            return;
+        }
         this.renderer.draw();
 
         this.world.room.draw(this.renderer.ctx);

@@ -31,14 +31,18 @@ define(function () {
                 var img = new Image();
                 img.src = '.' + item;
                 this.assets[item] = img;
-                img.addEventListener('load', function () {
-                    _this.completed += 1;
-                }, false);
-                img.addEventListener('error', function () {
-                    _this.error += 1;
-                }, false);
+                img.addEventListener('load', _this.addComplete.bind(_this), false);
+                img.addEventListener('error', _this.addError.bind(_this), false);
             }
         }
+    };
+
+    Loader.prototype.addComplete = function () {
+        this.completed += 1;
+    };
+
+    Loader.prototype.addError = function () {
+        this.error += 1;
     };
 
     /**

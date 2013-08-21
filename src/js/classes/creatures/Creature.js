@@ -110,7 +110,7 @@ define(function () {
      */
     Creature.prototype.getDamage = function () {
         return this.damage;
-    }
+    };
 
     /**
      *  Check to see if the creature has collided

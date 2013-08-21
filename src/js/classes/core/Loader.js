@@ -1,4 +1,10 @@
-define(function () {
+define([
+    'Sprite',
+    'TileSet'
+], function (
+    Sprite,
+    TileSet
+) {
     'use strict';
 
     /**
@@ -27,14 +33,31 @@ define(function () {
     Loader.prototype.loadAll = function () {
         var _this = this;
         for (var item in this.queue) {
-            if (item.indexOf('sprite') !== -1 || item.indexOf('tiles') !== -1) {
-                var img = new Image();
+            var img = null;
+            var fn = "";
+            var explode = [];
+            if (item.indexOf('sprite') !== -1) {
+                explode = path.item('/');
+                fn = explode[explode.length - 1];
+                img = new Image();
                 img.src = '.' + item;
-                this.assets[item] = img;
+                this.assets[fn] = new Sprite(img);
+                img.addEventListener('load', _this.addComplete.bind(_this), false);
+                img.addEventListener('error', _this.addError.bind(_this), false);
+            } else if (item.indexOf('tiles') !== -1) {
+                explode = path.item('/');
+                fn = explode[explode.length - 1];
+                img = new Image();
+                img.src = '.' + item;
+                this.assets[fn] = new TileSet(img);
                 img.addEventListener('load', _this.addComplete.bind(_this), false);
                 img.addEventListener('error', _this.addError.bind(_this), false);
             }
         }
+    };
+
+    Loader.prototype.get = function (fn) {
+        return this.assets[fn];
     };
 
     Loader.prototype.addComplete = function () {

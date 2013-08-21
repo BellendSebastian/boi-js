@@ -15,7 +15,7 @@ define(function () {
     };
 
     BaseEntity.prototype.draw = function (renderer) {
-        renderer.ctx.drawImage(this.sprite, this.pos.x - (this.size / 2), this.pos.y - (this.size / 2), this.size, this.size);
+        renderer.ctx.drawImage(this.sprite.image, this.pos.x - (this.size / 2), this.pos.y - (this.size / 2), this.size, this.size);
     };
 
     return BaseEntity;

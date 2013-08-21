@@ -6,7 +6,8 @@ define([
     'Input',
     'ScreenMain',
     'MainMenu',
-    'WorldFactory'
+    'WorldFactory',
+    'CollisionMap'
 ], function (
     Loader,
     Renderer,
@@ -15,7 +16,8 @@ define([
     Input,
     ScreenMain,
     MainMenu,
-    WorldFactory
+    WorldFactory,
+    CollisionMap
 ) {
     'use strict';
 
@@ -23,11 +25,21 @@ define([
      *  Game constructor
      */
     function Game() {
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+        window.requestAnimationFrame = requestAnimationFrame;
+
         this.paused = false;
         this.loaded = false;
-        this.input = new Input();
+        this.entities = [];
 
+        this.input = new Input();
+        this.ef = new EntityFactory();
+        this.cf = new CreatureFactory();
+        this.wf = new WorldFactory();
+        this.cm = new CollisionMap();
         this.loader = new Loader();
+        this.renderer = new Renderer(document.getElementById('viewport'), 960, 640);
+
         this.loader.add('/assets/sprites/player-test.png');
         this.loader.add('/assets/sprites/projectile-test.png');
         this.loader.add('/assets/tiles/test.png');
@@ -35,24 +47,15 @@ define([
         this.loader.add('/assets/sprites/fire-test.png');
         this.loader.loadAll();
 
-        this.renderer = new Renderer(document.getElementById('viewport'), 960, 640);
-        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-        window.requestAnimationFrame = requestAnimationFrame;
         this.renderer.useScreen(new ScreenMain());
 
-        this.entities = [];
+        this.world = this.wf.buildWorld([this.loader.get('test.png')]);
 
-        this.ef = new EntityFactory();
-        this.cf = new CreatureFactory();
-        this.wf = new WorldFactory();
-
-        this.world = this.wf.buildWorld([this.loader.assets['/assets/tiles/test.png']]);
-
-        this.player = this.cf.spawnPlayer(this.loader.assets['/assets/sprites/player-test.png']);
+        this.player = this.cf.spawnPlayer(this.loader.get('player-test.png'));
         this.entities.push(this.player);
-        var pt = this.ef.spawnPoop(this.loader.assets['/assets/sprites/poop-test.png'], this.renderer.canvas.width / 2, this.renderer.canvas.height / 2);
+        var pt = this.ef.spawnPoop(this.loader.get('poop-test.png'), this.renderer.canvas.width / 2, this.renderer.canvas.height / 2);
         this.entities.push(pt);
-        var ft = this.ef.spawnFire(this.loader.assets['/assets/sprites/fire-test.png'], this.renderer.canvas.width / 4, this.renderer.canvas.height / 2);
+        var ft = this.ef.spawnFire(this.loader.get('fire-test.png'), this.renderer.canvas.width / 4, this.renderer.canvas.height / 2);
         this.entities.push(ft);
 
         this.loop();
@@ -148,25 +151,25 @@ define([
 
             if (this.input.isPressed(38)) { // Up
                 if (!this.player.hasFired) {
-                    this.entities.push(this.ef.spawnProjectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, 0, -1, movement));
+                    this.entities.push(this.ef.spawnProjectile(this.loader.get('projectile-test.png'), this.player.pos.x, this.player.pos.y, 0, -1, movement));
                     this.player.hasFired = true;
                 }
             }
             if (this.input.isPressed(40)) { // Down
                 if (!this.player.hasFired) {
-                    this.entities.push(this.ef.spawnProjectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, 0, 1, movement));
+                    this.entities.push(this.ef.spawnProjectile(this.loader.get('projectile-test.png'), this.player.pos.x, this.player.pos.y, 0, 1, movement));
                     this.player.hasFired = true;
                 }
             }
             if (this.input.isPressed(37)) { // Left
                 if (!this.player.hasFired) {
-                    this.entities.push(this.ef.spawnProjectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, -1, 0, movement));
+                    this.entities.push(this.ef.spawnProjectile(this.loader.get('projectile-test.png'), this.player.pos.x, this.player.pos.y, -1, 0, movement));
                     this.player.hasFired = true;
                 }
             }
             if (this.input.isPressed(39)) { // Right
                 if (!this.player.hasFired) {
-                    this.entities.push(this.ef.spawnProjectile(this.loader.assets['/assets/sprites/projectile-test.png'], this.player.pos.x, this.player.pos.y, 1, 0, movement));
+                    this.entities.push(this.ef.spawnProjectile(this.loader.get('projectile-test.png'), this.player.pos.x, this.player.pos.y, 1, 0, movement));
                     this.player.hasFired = true;
                 }
             }

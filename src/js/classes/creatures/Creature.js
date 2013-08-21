@@ -39,7 +39,7 @@ define(function () {
      *  Draw creature
      */
     Creature.prototype.draw = function (renderer) {
-        renderer.ctx.drawImage(this.sprite, this.pos.x - this.width / 2, this.pos.y - this.height / 2);
+        renderer.ctx.drawImage(this.sprite.image, this.pos.x - this.width / 2, this.pos.y - this.height / 2);
         return this;
     };
 

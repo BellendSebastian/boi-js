@@ -6,6 +6,8 @@ requirejs.config({
         'Input':            'classes/core/Input',
         'Renderer':         'classes/core/Renderer',
         'Loader':           'classes/core/Loader',
+        'Collider':         'classes/core/Collider',
+        'CollisionMap':     'classes/core/CollisionMap',
 
         // Graphics
         'Sprite':           'classes/graphics/Sprite',

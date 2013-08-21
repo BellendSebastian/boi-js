@@ -7,12 +7,20 @@ requirejs.config({
         'Renderer':         'classes/core/Renderer',
         'Loader':           'classes/core/Loader',
 
+        // Graphics
+        'Sprite':           'classes/graphics/Sprite',
+        'TileSet':          'classes/graphics/TileSet',
+
         // Creature classes
         'Creature':         'classes/creatures/Creature',
         'Player':           'classes/creatures/Player',
         'CreatureFactory':  'classes/creatures/CreatureFactory',
 
         // Entities
+        'EntityFactory':    'classes/entities/EntityFactory',
+        'BaseEntity':       'classes/entities/BaseEntity',
+        'Poop':             'classes/entities/Poop',
+        'Fire':             'classes/entities/Fire',
         'Projectile':       'classes/entities/Projectile',
 
         // Screens

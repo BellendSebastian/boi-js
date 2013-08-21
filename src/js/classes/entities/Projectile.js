@@ -1,5 +1,12 @@
-define(function () {
+define([
+    'BaseEntity'
+], function (
+    BaseEntity
+) {
     'use strict';
+
+    Projectile.prototype = new BaseEntity();
+    Projectile.prototype.constructor = Projectile;
 
     /**
      *  Basic projectile class, nothing fancy for now.
@@ -7,20 +14,15 @@ define(function () {
      *  TODO: make fancy
      */
     function Projectile(sprite, x, y, velX, velY, modifier) {
-        this.sprite = sprite;
         this.speed = 10;
         this.modifier = modifier;
         this.damage = 0;
-        this.width = 16;
-        this.height = 16;
         this.vel = {
             x: velX * this.speed + (this.modifier.x * 2),
             y: velY * this.speed + (this.modifier.y * 2)
         };
-        this.pos = {
-            x: x,
-            y: y
-        };
+        BaseEntity.call(this, sprite, x, y);
+        this.size = 32;
     }
 
     /**
@@ -37,14 +39,6 @@ define(function () {
     Projectile.prototype.update = function () {
         this.pos.x += this.vel.x;
         this.pos.y += this.vel.y;
-        return this;
-    };
-
-    /**
-     *  Draw the projectile
-     */
-    Projectile.prototype.draw = function (renderer) {
-        renderer.ctx.drawImage(this.sprite, this.pos.x - this.width / 2, this.pos.y - this.height / 2);
         return this;
     };
 

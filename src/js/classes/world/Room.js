@@ -27,7 +27,11 @@ define(function () {
     Room.prototype.draw = function (context) {
         for (var y = 0; y < this.layout.length; y++) {
             for (var x = 0; x < this.layout[0].length; x++) {
-                context.drawImage(this.tileSet, this.layout[y][x] * this.tileSize, 0, this.tileSize, this.tileSize, this.tileSize * x + this.tileSize, this.tileSize * y + (this.tileSize * 2), this.tileSize, this.tileSize);
+                if (this.layout[y][x] === 1 || this.layout[y][x] === 0) {
+                    context.drawImage(this.tileSet, this.layout[y][x] * this.tileSize, 0, this.tileSize, this.tileSize, this.tileSize * x + this.tileSize, this.tileSize * y + (this.tileSize * 2), this.tileSize, this.tileSize);
+                } else {
+                    context.drawImage(this.tileSet, 0 * this.tileSize, 0, this.tileSize, this.tileSize, this.tileSize * x + this.tileSize, this.tileSize * y + (this.tileSize * 2), this.tileSize, this.tileSize);
+                }
             }
         }
         return this;

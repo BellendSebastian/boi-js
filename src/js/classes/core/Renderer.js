@@ -9,7 +9,8 @@ define([
      */
     function Renderer(canvas, width, height) {
         this.canvas = canvas;
-        this.ctx = this.canvas.getContext('2d');
+        this.canvas.width = width;
+        this.canvas.height = height;
         this.screen = null;
         this.subscreen = null;
         this.inSubscreen = false;
@@ -17,9 +18,14 @@ define([
         this.lastStep = new Date().getTime();
         this.fps = '--';
         this.frameCount = 0;
+        this.gl = null;
 
-        this.canvas.width = width;
-        this.canvas.height = height;
+        try {
+            this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+            this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+        } catch (e) {
+            console.error(e);
+        }
 
         this.clear();
     }
@@ -36,8 +42,8 @@ define([
      *  Clear screen, draw a black rectangle (because black is cool)
      */
     Renderer.prototype.clear = function () {
-        this.canvas.width = this.canvas.width;
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT || this.gl.DEPTH_BUFFER_BIT);
+        return this;
     };
 
     /**
@@ -57,11 +63,11 @@ define([
     Renderer.prototype.draw = function () {
         this.clear();
         if (this.inSubscreen) {
-            this.subscreen.draw(this.canvas, this.ctx);
+            this.subscreen.draw(this.canvas, this.gl);
         } else {
-            this.screen.draw(this.canvas, this.ctx);
+            this.screen.draw(this.canvas, this.gl);
         }
-        this.fpsCounter();
+        //this.fpsCounter();
     };
 
     /**

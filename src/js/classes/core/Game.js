@@ -71,9 +71,9 @@ define([
 
         this.handleKeys();
 
-        if (this.paused) {
-            return;
-        }
+        //if (this.paused) {
+            //return;
+        //}
 
         this.entities.forEach(function (entity) {
             entity.update();
@@ -85,7 +85,7 @@ define([
      *  Main draw step, no logic, only visuals
      */
     Game.prototype.draw = function () {
-        if (!this.loader.checkLoaded() || this.paused) {
+        if (!this.loader.checkLoaded()/* || this.paused*/) {
             return;
         }
         this.renderer.draw();
@@ -121,10 +121,10 @@ define([
         } else if (this.input.isPressed(27)) {
             this.paused = false;
             this.renderer.clearSubscreen();
-        } else if (this.input.isPressed(80)) {
+        } /*else if (this.input.isPressed(80)) {
             this.renderer.pause();
             this.paused = true;
-        }
+        }*/
 
         var movement = {
             x: 0,
